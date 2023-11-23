@@ -14,7 +14,7 @@
                 <img src="@/assets/images/kv.5edbc295.png" class="banner-img" alt="" />
               </div>
               <div class="section-magic-os">
-                <h2 class="section-slogan">欢迎光临我的博客</h2>
+                <h2 class="section-slogan h2">欢迎光临我的博客</h2>
               </div>
             </div>
           </section>
@@ -54,6 +54,51 @@
               </div>
             </div>
           </section>
+          <section class="section-magic-ring section-start">
+            <div class="sticky-wrapper">
+              <div class="sticky-content section-row">
+                <div class="section-wrapper">
+                  <Ellipse></Ellipse>
+                  <h2
+                    class="section-headline will-show"
+                    style="
+                      margin-top: 0.520833vw;
+                      font-size: 3.333333vw;
+                      color: rgb(0, 0, 0, 0.8);
+                      opacity: 0;
+                    "
+                  >
+                    MagicRing 信任环
+                  </h2>
+                  <p
+                    class="section-subhead will-show1"
+                    style="
+                      margin-top: 1.041667vw;
+                      font-size: 2.5vw;
+                      color: rgb(0, 0, 0, 0.8);
+                      opacity: 0;
+                    "
+                  >
+                    智慧互联 再无界
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="section-connect-1 section-layout-connect">
+            <div class="section-content-connect fade-copy fade-trigger">
+              <h2 class="section-headline nowrap">
+                三指上滑
+                <br />
+                万物互联
+              </h2>
+              <p class="section-intro">
+                进入控制中心，三指上滑，拖动图标触碰周围的荣耀设备，一步开展多设备协同；
+                <br />
+                在App里，以上述相同操作，还可实现应用数据流转1。
+              </p>
+            </div>
+          </section>
         </div>
       </div>
     </div>
@@ -64,6 +109,8 @@
   import { gsap } from 'gsap'
   import { ScrollTrigger } from 'gsap/ScrollTrigger'
   import { SplitText } from '@/utils/splitText'
+
+  import Ellipse from '../components/ellipse.vue'
 
   gsap.registerPlugin(ScrollTrigger)
 
@@ -97,6 +144,36 @@
     }
   })
 
+  gsap.registerEffect({
+    name: 'tech4',
+    extendTimeline: true,
+    effect: function (targets) {
+      let tl = gsap
+        .timeline()
+        // 整个svg从放大效果回到正常
+        .from(targets[0], {
+          duration: 0.5,
+          scale: 5,
+          yPercent: 20
+        }) // 标题逐渐显示
+        .to(targets[1], {
+          duration: 0.5,
+          opacity: 1
+        }) // 副标题从下向上滚动
+        .fromTo(
+          targets[2],
+          {
+            y: 60
+          },
+          {
+            y: 0,
+            opacity: 1
+          }
+        )
+      return tl
+    }
+  })
+
   const triggerFn = () => {
     const triggerList = document.querySelectorAll('.fade-trigger')
     triggerList.forEach(item => {
@@ -112,9 +189,42 @@
     })
   }
 
+  const triggerEllipse = () => {
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: '.magic-svg',
+          start: 'top 60%',
+          end: 'bottom 100%',
+          scrub: 0.5
+        }
+      })
+      // 让ellipse实现描边
+      .to('.magic-path', {
+        strokeDasharray: '0% 0% 220%'
+      })
+      // 让中心圆圈渐显
+      .to('.magic-circle', {
+        duration: 0.5,
+        opacity: 1
+      })
+      // 让ellipse从细到粗渐变
+      .from(
+        '.magic-path',
+        {
+          duration: 0.5,
+          stroke: '#d7a85b',
+          strokeWidth: 2
+        },
+        '<'
+      )
+      .tech4(['.magic-svg', '.will-show', '.will-show1'], '<')
+  }
+
   onMounted(() => {
-    gsap.timeline().rainbow('h2')
+    gsap.timeline().rainbow('.h2')
     triggerFn()
+    triggerEllipse()
   })
 </script>
 <style lang="less" scoped>
@@ -261,7 +371,6 @@
                 font-size: 2.5vw;
                 font-weight: 500;
                 color: rgba(0, 0, 0, 0.8) !important;
-                font-weight: 400;
               }
               .section-content {
                 display: flex;
@@ -290,6 +399,64 @@
                     color: rgba(0, 0, 0, 0.5);
                   }
                 }
+              }
+            }
+          }
+          .section-start {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            height: 100%;
+            .sticky-wrapper {
+              height: 200vh;
+              position: relative;
+              z-index: 1;
+              .sticky-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                top: -15%;
+                overflow: hidden;
+                width: 100%;
+                height: calc(100vh - 65px);
+                .section-wrapper {
+                  translate: none;
+                  rotate: none;
+                  scale: none;
+                  transform: translate(0px, 0px);
+                }
+              }
+            }
+          }
+          .section-connect-1 {
+            position: relative;
+            z-index: 1;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100vh;
+            .section-content-connect {
+              display: flex;
+              align-items: center;
+              width: 54.1667vw;
+              margin-right: auto;
+              margin-left: auto;
+              box-sizing: border-box;
+              .section-headline {
+                font-size: 2.5vw;
+                white-space: nowrap;
+              }
+              .section-intro {
+                display: block;
+                margin-left: 3.125vw;
+                color: rgb(0, 0, 0, 0.5);
+                font-size: 0.9375vw;
+                margin-block-start: 1em;
+                margin-block-end: 1em;
+                margin-inline-end: 0px;
               }
             }
           }
