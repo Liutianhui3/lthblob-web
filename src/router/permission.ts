@@ -1,7 +1,7 @@
 import { constantRoutes } from './constants'
 import NProgress from 'nprogress' // progress bar
 
-const whitePaths = ['/home']
+const whitePaths = ['/home', '/demo', '/demo1']
 const modules = import.meta.glob('../views/**/index.vue')
 
 export const createRouterGuard = function (router: any) {

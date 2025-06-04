@@ -45,7 +45,7 @@
     "auto-imports.d.ts",
     "src/**/*.js",
     "src/**/*.jsx"
-  ],
+, "commitlint.config.js"  ],
   "references": [
     {
       "path": "./tsconfig.node.json"
