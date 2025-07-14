@@ -6,9 +6,14 @@ import App from './App.vue'
 
 import '@/assets/styles/global.less'
 import '@/assets/styles/override.less' //重写样式
+import '@/assets/styles/antd.less'
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
+import VueVirtualScroller from 'vue-virtual-scroller'
+
+import AntdComponent from './plugins/antd'
 
 const app = createApp(App)
 
-app.use(router)
+AntdComponent(app)
 
-app.mount('#app')
+app.use(router).use(VueVirtualScroller).mount('#app')

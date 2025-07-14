@@ -3,10 +3,31 @@
     <div class="avatar">
       <img src="@/assets/images/avatar.png" alt="" />
     </div>
+    <a-button
+      type="primary"
+      @click="
+        () => {
+          open = true
+        }
+      "
+    >
+      点击弹窗
+    </a-button>
+    <a-drawer
+      v-model:open="open"
+      :mask="false"
+      :root-style="{ color: 'blue' }"
+      style="color: red"
+      title="Basic Drawer"
+      placement="bottom"
+      rootClassName="root"
+    ></a-drawer>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup>
+  const open = ref(false)
+</script>
 <style lang="less" scoped>
   .container {
     height: 100vh;

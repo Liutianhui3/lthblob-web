@@ -1,7 +1,7 @@
 export const constantRoutes: any = [
   {
     path: '/',
-    redirect: '/demo'
+    redirect: '/demo2'
   },
   {
     path: '/home',
@@ -17,5 +17,10 @@ export const constantRoutes: any = [
     path: '/demo1',
     component: () => import(/* webpackChunkName: "login" */ '@/views/demo1/index.vue'),
     meta: { title: 'Demo1' }
+  },
+  {
+    path: '/demo2',
+    component: () => import(/* webpackChunkName: "login" */ '@/views/demo2/index.vue'),
+    meta: { title: 'Demo2' }
   }
 ]

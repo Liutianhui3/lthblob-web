@@ -7,8 +7,9 @@ import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 // 组件自动引入
 import Components from 'unplugin-vue-components/vite'
-import { ArcoResolver } from 'unplugin-vue-components/resolvers'
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import { AntDesignXVueResolver } from 'ant-design-x-vue/resolver'
 
 export default ({ mode }: ConfigEnv): UserConfig => {
   const root = process.cwd()
@@ -32,11 +33,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         dirs: ['./src/hooks', './src/hooks/**']
       }),
       Components({
-        resolvers: [
-          ArcoResolver({
-            sideEffect: true
-          })
-        ]
+        resolvers: [AntDesignVueResolver({ importStyle: false }), AntDesignXVueResolver()]
       }),
       createSvgIconsPlugin({
         iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
@@ -71,15 +68,13 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       host: '0.0.0.0',
       port: 8082,
       // open: false,
-      proxy: {
-      }
+      proxy: {}
     },
     css: {
       preprocessorOptions: {
         less: {
           additionalData: `@import "${path.join(__dirname, 'src/assets/styles/variable.less')}";`,
-          modifyVars: {
-          },
+          modifyVars: {},
           javascriptEnabled: true
         }
       }
@@ -95,4 +90,4 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       }
     }
   }
-} 
+}
